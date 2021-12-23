@@ -19,6 +19,7 @@
 		"indent": ["error", "tab"],
 		"no-tabs": "off",
 		"import/prefer-default-export": "off",
-		"no-useless-constructor": "off"
+		"no-useless-constructor": "off",
+		"comma-dangle": "off"
 	}
 }
