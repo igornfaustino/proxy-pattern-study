@@ -15,7 +15,7 @@ interface GetEntryRepository {
 }
 
 interface GetUserRepository {
-	get(): Promise<User | undefined>;
+	get(token: string): Promise<User | undefined>;
 }
 
 class AccessEntryUseCase {
@@ -24,8 +24,8 @@ class AccessEntryUseCase {
 		private getUserRepository: GetUserRepository
 	) {}
 
-	async perform() {
-		const user = this.getUserRepository.get();
+	async perform(token: string) {
+		const user = this.getUserRepository.get(token);
 		const entry = this.getEntryRepository.get();
 	}
 }
@@ -46,20 +46,25 @@ class MockGetEntryRepository implements GetEntryRepository {
 class MockGetUserRepository implements GetUserRepository {
 	calls = 0;
 
+	param?: string;
+
 	output: User | undefined = {
 		id: 'any_id',
 		name: 'user_name',
 		email: 'user@test.com',
 	};
 
-	get(): Promise<User | undefined> {
+	get(token: string): Promise<User | undefined> {
 		this.calls += 1;
+		this.param = token;
 
 		return Promise.resolve(this.output);
 	}
 }
 
 describe('AccessEntryUseCase', () => {
+	const token = 'any_token';
+
 	const makeSut = () => {
 		const getEntryRepository = new MockGetEntryRepository();
 		const getUserRepository = new MockGetUserRepository();
@@ -75,15 +80,24 @@ describe('AccessEntryUseCase', () => {
 	it('should get entry', async () => {
 		const { sut, getEntryRepository } = makeSut();
 
-		await sut.perform();
+		await sut.perform(token);
 
 		expect(getEntryRepository.calls).toBe(1);
+	});
+
+	it('should call get user with the right params', async () => {
+		const { sut, getUserRepository } = makeSut();
+
+		await sut.perform(token);
+
+		expect(getUserRepository.calls).toBe(1);
+		expect(getUserRepository.param).toBe(token);
 	});
 
 	it('should get user if token is valid', async () => {
 		const { sut, getUserRepository } = makeSut();
 
-		const promise = sut.perform();
+		const promise = sut.perform(token);
 
 		await expect(promise).resolves.not.toThrowError();
 		expect(getUserRepository.calls).toBe(1);
