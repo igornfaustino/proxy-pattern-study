@@ -1,0 +1,10 @@
+{
+  "name": "proxy-pattern",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "igornfaustino",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^4.5.4"
+  }
+}
