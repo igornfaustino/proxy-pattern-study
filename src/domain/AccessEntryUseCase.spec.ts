@@ -1,8 +1,7 @@
 /* eslint-disable max-classes-per-file */
-type Entry = {
-	id: string;
-	name: string;
-};
+interface Entry {
+	getEntryValue(): string;
+}
 
 type User = {
 	id: string;
@@ -29,19 +28,30 @@ class AccessEntryUseCase {
 		if (!user) throw new Error('invalid_user');
 
 		const entry = this.getEntryRepository.get();
+		entry.getEntryValue();
+	}
+}
+
+class EntryMock implements Entry {
+	calls = 0;
+
+	getEntryValue(): string {
+		this.calls += 1;
+		return 'secret_value';
 	}
 }
 
 class MockGetEntryRepository implements GetEntryRepository {
 	calls = 0;
 
+	output: Entry = {
+		getEntryValue: () => 'secret_value',
+	};
+
 	get(): Entry {
 		this.calls += 1;
 
-		return {
-			id: 'any_id',
-			name: 'any_name',
-		};
+		return this.output;
 	}
 }
 
@@ -112,5 +122,15 @@ describe('AccessEntryUseCase', () => {
 		const promise = sut.perform(token);
 
 		await expect(promise).rejects.toThrowError();
+	});
+
+	it('should access entry value if user is valid', async () => {
+		const { sut, getEntryRepository } = makeSut();
+		const entry = new EntryMock();
+		getEntryRepository.output = entry;
+
+		await sut.perform(token);
+
+		await expect(entry.calls).toBe(1);
 	});
 });
