@@ -30,9 +30,18 @@ class MockGetEntryRepository implements GetEntryRepository {
 }
 
 describe('AccessEntryUseCase', () => {
-	it('should get entry', () => {
+	const makeSut = () => {
 		const getEntryRepository = new MockGetEntryRepository();
 		const sut = new AccessEntryUseCase(getEntryRepository);
+
+		return {
+			sut,
+			getEntryRepository,
+		};
+	};
+
+	it('should get entry', () => {
+		const { sut, getEntryRepository } = makeSut();
 
 		sut.perform();
 
