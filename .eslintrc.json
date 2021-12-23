@@ -15,11 +15,19 @@
 		"ecmaVersion": 13
 	},
 	"plugins": ["@typescript-eslint"],
+	"settings": {
+		"import/resolver": {
+			"node": {
+				"extensions": [".js", ".jsx", ".ts", ".tsx"]
+			}
+		}
+	},
 	"rules": {
 		"indent": ["error", "tab"],
 		"no-tabs": "off",
 		"import/prefer-default-export": "off",
 		"no-useless-constructor": "off",
-		"comma-dangle": "off"
+		"comma-dangle": "off",
+		"import/extensions": "off"
 	}
 }

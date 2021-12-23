@@ -1,36 +1,9 @@
 /* eslint-disable max-classes-per-file */
-interface Entry {
-	getEntryValue(): string;
-}
-
-type User = {
-	id: string;
-	name: string;
-	email: string;
-};
-
-interface GetEntryRepository {
-	get(): Entry;
-}
-
-interface GetUserRepository {
-	get(token: string): Promise<User | undefined>;
-}
-
-class AccessEntryUseCase {
-	constructor(
-		private getEntryRepository: GetEntryRepository,
-		private getUserRepository: GetUserRepository
-	) {}
-
-	async perform(token: string) {
-		const user = await this.getUserRepository.get(token);
-		if (!user) throw new Error('invalid_user');
-
-		const entry = this.getEntryRepository.get();
-		entry.getEntryValue();
-	}
-}
+import { Entry } from '../entities/Entry';
+import { User } from '../entities/User';
+import { AccessEntryUseCase } from '../useCases/AccessEntryUseCase/AccessEntryUseCase';
+import { GetEntryRepository } from '../useCases/AccessEntryUseCase/GetEntryRepository';
+import { GetUserRepository } from '../useCases/AccessEntryUseCase/GetUserRepository';
 
 class EntryMock implements Entry {
 	calls = 0;
