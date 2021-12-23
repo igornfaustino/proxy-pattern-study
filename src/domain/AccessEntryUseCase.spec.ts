@@ -25,7 +25,9 @@ class AccessEntryUseCase {
 	) {}
 
 	async perform(token: string) {
-		const user = this.getUserRepository.get(token);
+		const user = await this.getUserRepository.get(token);
+		if (!user) throw new Error('invalid_user');
+
 		const entry = this.getEntryRepository.get();
 	}
 }
@@ -101,5 +103,14 @@ describe('AccessEntryUseCase', () => {
 
 		await expect(promise).resolves.not.toThrowError();
 		expect(getUserRepository.calls).toBe(1);
+	});
+
+	it('should throw an error if user if token is invalid', async () => {
+		const { sut, getUserRepository } = makeSut();
+		getUserRepository.output = undefined;
+
+		const promise = sut.perform(token);
+
+		await expect(promise).rejects.toThrowError();
 	});
 });
