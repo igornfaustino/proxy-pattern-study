@@ -5,7 +5,7 @@ export class MockGetEntryRepository implements IGetEntryRepository {
 	calls = 0;
 
 	output: IEntry = {
-		getEntryValue: () => 'secret_value',
+		getEntryValue: () => Promise.resolve('secret_value'),
 	};
 
 	get(): IEntry {

@@ -12,6 +12,6 @@ export class AccessEntryUseCase {
 		if (!user) throw new Error('invalid_user');
 
 		const entry = this.getEntryRepository.get();
-		entry.getEntryValue();
+		await entry.getEntryValue();
 	}
 }

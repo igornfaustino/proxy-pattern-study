@@ -1,3 +1,3 @@
 export interface IEntry {
-	getEntryValue(): string;
+	getEntryValue(): Promise<string>;
 }

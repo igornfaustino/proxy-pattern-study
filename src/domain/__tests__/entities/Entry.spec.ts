@@ -1,9 +1,11 @@
 import { Entry } from '../../entities/implementations/Entry';
 
 describe('Entry', () => {
-	test('should get value from entry', () => {
+	test('should get value from entry', async () => {
 		const sut = new Entry('any_value');
 
-		expect(sut.getEntryValue()).toBe('any_value');
+		const value = await sut.getEntryValue();
+
+		expect(value).toBe('any_value');
 	});
 });
