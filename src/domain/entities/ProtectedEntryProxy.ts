@@ -5,7 +5,7 @@ import { Entry } from './Entry';
 
 export class ProtectedEntryProxy implements IEntry {
 	constructor(
-		private entry: Entry,
+		private entry: IEntry,
 		private saveAccessLogRepository: SaveAccessLogRepository,
 		private user: IUser
 	) {}
