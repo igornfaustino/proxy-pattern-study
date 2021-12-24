@@ -3,22 +3,7 @@ import { Entry } from '../../entities/Entry';
 import { ProtectedEntryProxy } from '../../entities/ProtectedEntryProxy';
 import { SaveAccessLogRepository } from '../../interfaces/SaveAccessLogRepository';
 import { IUser } from '../../interfaces/IUser';
-
-class SaveAccessLogRepositoryMock implements SaveAccessLogRepository {
-	calls = 0;
-
-	params?: {
-		user: IUser;
-		entry: IEntry;
-	};
-
-	log(user: IUser, entry: IEntry): Promise<void> {
-		this.calls += 1;
-		this.params = { user, entry };
-
-		return Promise.resolve();
-	}
-}
+import { SaveAccessLogRepositoryMock } from '../mocks/repositories/MockSaveAccessLogRepository';
 
 describe('ProtectedEntryProxy', () => {
 	const entryValue = 'protected value';
