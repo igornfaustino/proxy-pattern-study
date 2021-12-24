@@ -1,7 +1,20 @@
+import { Entry } from '../../entities/Entry';
+import { IEntry } from '../../interfaces/IEntry';
+import { IProtectedEntryFactory } from '../../interfaces/IProtectedRepositoryFactory';
+import { IUser } from '../../interfaces/IUser';
 import { AccessEntryUseCase } from '../../useCases/AccessEntryUseCase/AccessEntryUseCase';
 import { EntryMock } from '../mocks/entities/Entry';
 import { MockGetEntryRepository } from '../mocks/repositories/MockGetEntryRepository';
 import { MockGetUserRepository } from '../mocks/repositories/MockGetUserRepository';
+
+class MockProtectedRepositoryFactory implements IProtectedEntryFactory {
+	calls = 0;
+
+	create(user: IUser, entry: IEntry): IEntry {
+		this.calls += 1;
+		return new Entry('some_value');
+	}
+}
 
 describe('AccessEntryUseCase', () => {
 	const token = 'any_token';
@@ -9,12 +22,18 @@ describe('AccessEntryUseCase', () => {
 	const makeSut = () => {
 		const getEntryRepository = new MockGetEntryRepository();
 		const getUserRepository = new MockGetUserRepository();
-		const sut = new AccessEntryUseCase(getEntryRepository, getUserRepository);
+		const protectedRepositoryFactory = new MockProtectedRepositoryFactory();
+		const sut = new AccessEntryUseCase(
+			getEntryRepository,
+			getUserRepository,
+			protectedRepositoryFactory
+		);
 
 		return {
 			sut,
 			getEntryRepository,
 			getUserRepository,
+			protectedRepositoryFactory,
 		};
 	};
 
@@ -61,5 +80,13 @@ describe('AccessEntryUseCase', () => {
 		await sut.perform(token);
 
 		await expect(entry.calls).toBe(1);
+	});
+
+	it('should create a protected entry', async () => {
+		const { sut, protectedRepositoryFactory } = makeSut();
+
+		await sut.perform(token);
+
+		await expect(protectedRepositoryFactory.calls).toBe(1);
 	});
 });
