@@ -1,5 +1,5 @@
-import { Entry } from '../../entities/Entry';
+import { IEntry } from '../../entities/Entry';
 
-export interface GetEntryRepository {
-	get(): Entry;
+export interface IGetEntryRepository {
+	get(): IEntry;
 }

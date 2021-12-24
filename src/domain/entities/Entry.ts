@@ -1,3 +1,3 @@
-export interface Entry {
+export interface IEntry {
 	getEntryValue(): string;
 }

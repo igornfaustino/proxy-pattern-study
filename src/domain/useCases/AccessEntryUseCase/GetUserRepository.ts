@@ -1,5 +1,5 @@
-import { User } from '../../entities/User';
+import { IUser } from '../../entities/User';
 
-export interface GetUserRepository {
-	get(token: string): Promise<User | undefined>;
+export interface IGetUserRepository {
+	get(token: string): Promise<IUser | undefined>;
 }

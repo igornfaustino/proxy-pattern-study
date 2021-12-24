@@ -1,11 +1,11 @@
 /* eslint-disable max-classes-per-file */
-import { Entry } from '../entities/Entry';
-import { User } from '../entities/User';
+import { IEntry } from '../entities/Entry';
+import { IUser } from '../entities/User';
 import { AccessEntryUseCase } from '../useCases/AccessEntryUseCase/AccessEntryUseCase';
-import { GetEntryRepository } from '../useCases/AccessEntryUseCase/GetEntryRepository';
-import { GetUserRepository } from '../useCases/AccessEntryUseCase/GetUserRepository';
+import { IGetEntryRepository } from '../useCases/AccessEntryUseCase/GetEntryRepository';
+import { IGetUserRepository } from '../useCases/AccessEntryUseCase/GetUserRepository';
 
-class EntryMock implements Entry {
+class EntryMock implements IEntry {
 	calls = 0;
 
 	getEntryValue(): string {
@@ -14,32 +14,32 @@ class EntryMock implements Entry {
 	}
 }
 
-class MockGetEntryRepository implements GetEntryRepository {
+class MockGetEntryRepository implements IGetEntryRepository {
 	calls = 0;
 
-	output: Entry = {
+	output: IEntry = {
 		getEntryValue: () => 'secret_value',
 	};
 
-	get(): Entry {
+	get(): IEntry {
 		this.calls += 1;
 
 		return this.output;
 	}
 }
 
-class MockGetUserRepository implements GetUserRepository {
+class MockGetUserRepository implements IGetUserRepository {
 	calls = 0;
 
 	param?: string;
 
-	output: User | undefined = {
+	output: IUser | undefined = {
 		id: 'any_id',
 		name: 'user_name',
 		email: 'user@test.com',
 	};
 
-	get(token: string): Promise<User | undefined> {
+	get(token: string): Promise<IUser | undefined> {
 		this.calls += 1;
 		this.param = token;
 

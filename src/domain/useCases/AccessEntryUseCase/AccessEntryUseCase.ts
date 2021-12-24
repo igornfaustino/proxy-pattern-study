@@ -1,10 +1,10 @@
-import { GetEntryRepository } from './GetEntryRepository';
-import { GetUserRepository } from './GetUserRepository';
+import { IGetEntryRepository } from './GetEntryRepository';
+import { IGetUserRepository } from './GetUserRepository';
 
 export class AccessEntryUseCase {
 	constructor(
-		private getEntryRepository: GetEntryRepository,
-		private getUserRepository: GetUserRepository
+		private getEntryRepository: IGetEntryRepository,
+		private getUserRepository: IGetUserRepository
 	) {}
 
 	async perform(token: string) {
