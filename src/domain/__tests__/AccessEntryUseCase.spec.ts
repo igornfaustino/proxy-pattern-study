@@ -1,51 +1,7 @@
-/* eslint-disable max-classes-per-file */
-import { IEntry } from '../entities/Entry';
-import { IUser } from '../entities/User';
 import { AccessEntryUseCase } from '../useCases/AccessEntryUseCase/AccessEntryUseCase';
-import { IGetEntryRepository } from '../useCases/AccessEntryUseCase/GetEntryRepository';
-import { IGetUserRepository } from '../useCases/AccessEntryUseCase/GetUserRepository';
-
-class EntryMock implements IEntry {
-	calls = 0;
-
-	getEntryValue(): string {
-		this.calls += 1;
-		return 'secret_value';
-	}
-}
-
-class MockGetEntryRepository implements IGetEntryRepository {
-	calls = 0;
-
-	output: IEntry = {
-		getEntryValue: () => 'secret_value',
-	};
-
-	get(): IEntry {
-		this.calls += 1;
-
-		return this.output;
-	}
-}
-
-class MockGetUserRepository implements IGetUserRepository {
-	calls = 0;
-
-	param?: string;
-
-	output: IUser | undefined = {
-		id: 'any_id',
-		name: 'user_name',
-		email: 'user@test.com',
-	};
-
-	get(token: string): Promise<IUser | undefined> {
-		this.calls += 1;
-		this.param = token;
-
-		return Promise.resolve(this.output);
-	}
-}
+import { EntryMock } from './mocks/entities/Entry';
+import { MockGetEntryRepository } from './mocks/repositories/MockGetEntryRepository';
+import { MockGetUserRepository } from './mocks/repositories/MockGetUserRepository';
 
 describe('AccessEntryUseCase', () => {
 	const token = 'any_token';
