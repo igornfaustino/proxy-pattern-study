@@ -1,4 +1,4 @@
-import { IUser } from '../../entities/User';
+import { IUser } from '../../entities/IUser';
 
 export interface IGetUserRepository {
 	get(token: string): Promise<IUser | undefined>;

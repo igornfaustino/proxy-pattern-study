@@ -1,4 +1,4 @@
-import { IUser } from '../../../entities/User';
+import { IUser } from '../../../entities/IUser';
 import { IGetUserRepository } from '../../../useCases/AccessEntryUseCase/GetUserRepository';
 
 export class MockGetUserRepository implements IGetUserRepository {

@@ -1,7 +1,7 @@
-import { AccessEntryUseCase } from '../useCases/AccessEntryUseCase/AccessEntryUseCase';
-import { EntryMock } from './mocks/entities/Entry';
-import { MockGetEntryRepository } from './mocks/repositories/MockGetEntryRepository';
-import { MockGetUserRepository } from './mocks/repositories/MockGetUserRepository';
+import { AccessEntryUseCase } from '../../useCases/AccessEntryUseCase/AccessEntryUseCase';
+import { EntryMock } from '../mocks/entities/Entry';
+import { MockGetEntryRepository } from '../mocks/repositories/MockGetEntryRepository';
+import { MockGetUserRepository } from '../mocks/repositories/MockGetUserRepository';
 
 describe('AccessEntryUseCase', () => {
 	const token = 'any_token';

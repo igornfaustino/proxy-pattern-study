@@ -1,4 +1,4 @@
-import { IEntry } from '../../../entities/Entry';
+import { IEntry } from '../../../entities/IEntry';
 import { IGetEntryRepository } from '../../../useCases/AccessEntryUseCase/GetEntryRepository';
 
 export class MockGetEntryRepository implements IGetEntryRepository {
