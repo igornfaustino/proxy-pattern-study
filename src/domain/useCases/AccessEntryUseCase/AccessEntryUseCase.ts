@@ -1,5 +1,5 @@
-import { IGetEntryRepository } from './GetEntryRepository';
-import { IGetUserRepository } from './GetUserRepository';
+import { IGetEntryRepository } from '../../interfaces/GetEntryRepository';
+import { IGetUserRepository } from '../../interfaces/GetUserRepository';
 
 export class AccessEntryUseCase {
 	constructor(

@@ -1,5 +1,5 @@
-import { IEntry } from '../../../entities/IEntry';
-import { IGetEntryRepository } from '../../../useCases/AccessEntryUseCase/GetEntryRepository';
+import { IEntry } from '../../../interfaces/IEntry';
+import { IGetEntryRepository } from '../../../interfaces/GetEntryRepository';
 
 export class MockGetEntryRepository implements IGetEntryRepository {
 	calls = 0;

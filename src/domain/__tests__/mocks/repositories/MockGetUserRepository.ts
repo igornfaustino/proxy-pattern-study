@@ -1,5 +1,5 @@
-import { IUser } from '../../../entities/IUser';
-import { IGetUserRepository } from '../../../useCases/AccessEntryUseCase/GetUserRepository';
+import { IUser } from '../../../interfaces/IUser';
+import { IGetUserRepository } from '../../../interfaces/GetUserRepository';
 
 export class MockGetUserRepository implements IGetUserRepository {
 	calls = 0;

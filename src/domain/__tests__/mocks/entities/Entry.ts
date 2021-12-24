@@ -1,4 +1,4 @@
-import { IEntry } from '../../../entities/IEntry';
+import { IEntry } from '../../../interfaces/IEntry';
 
 export class EntryMock implements IEntry {
 	calls = 0;

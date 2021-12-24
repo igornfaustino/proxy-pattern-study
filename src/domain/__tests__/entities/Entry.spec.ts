@@ -1,4 +1,4 @@
-import { Entry } from '../../entities/implementations/Entry';
+import { Entry } from '../../entities/Entry';
 
 describe('Entry', () => {
 	test('should get value from entry', async () => {

@@ -1,4 +1,4 @@
-import { IEntry } from '../IEntry';
+import { IEntry } from '../interfaces/IEntry';
 
 export class Entry implements IEntry {
 	constructor(private value: string) {}

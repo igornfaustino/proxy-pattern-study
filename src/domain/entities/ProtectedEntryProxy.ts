@@ -1,6 +1,6 @@
-import { SaveAccessLogRepository } from '../../interfaces/SaveAccessLogRepository';
-import { IEntry } from '../IEntry';
-import { IUser } from '../IUser';
+import { IEntry } from '../interfaces/IEntry';
+import { IUser } from '../interfaces/IUser';
+import { SaveAccessLogRepository } from '../interfaces/SaveAccessLogRepository';
 import { Entry } from './Entry';
 
 export class ProtectedEntryProxy implements IEntry {

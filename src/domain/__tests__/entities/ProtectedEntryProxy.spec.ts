@@ -1,8 +1,8 @@
-import { IEntry } from '../../entities/IEntry';
-import { Entry } from '../../entities/implementations/Entry';
-import { ProtectedEntryProxy } from '../../entities/implementations/ProtectedEntryProxy';
-import { IUser } from '../../entities/IUser';
+import { IEntry } from '../../interfaces/IEntry';
+import { Entry } from '../../entities/Entry';
+import { ProtectedEntryProxy } from '../../entities/ProtectedEntryProxy';
 import { SaveAccessLogRepository } from '../../interfaces/SaveAccessLogRepository';
+import { IUser } from '../../interfaces/IUser';
 
 class SaveAccessLogRepositoryMock implements SaveAccessLogRepository {
 	calls = 0;

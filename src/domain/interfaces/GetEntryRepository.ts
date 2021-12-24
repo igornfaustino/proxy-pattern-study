@@ -1,4 +1,4 @@
-import { IEntry } from '../../entities/IEntry';
+import { IEntry } from './IEntry';
 
 export interface IGetEntryRepository {
 	get(): IEntry;
