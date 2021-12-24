@@ -15,6 +15,6 @@ export class AccessEntryUseCase {
 
 		const entry = this.getEntryRepository.get();
 		const protectedEntry = this.protectedEntryFactory.create(user, entry);
-		await entry.getEntryValue();
+		await protectedEntry.getEntryValue();
 	}
 }

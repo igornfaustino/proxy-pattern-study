@@ -10,9 +10,12 @@ import { MockGetUserRepository } from '../mocks/repositories/MockGetUserReposito
 class MockProtectedRepositoryFactory implements IProtectedEntryFactory {
 	calls = 0;
 
+	lastCreatedEntry?: EntryMock;
+
 	create(user: IUser, entry: IEntry): IEntry {
 		this.calls += 1;
-		return new Entry('some_value');
+		this.lastCreatedEntry = new EntryMock();
+		return this.lastCreatedEntry;
 	}
 }
 
@@ -72,21 +75,20 @@ describe('AccessEntryUseCase', () => {
 		await expect(promise).rejects.toThrowError();
 	});
 
-	it('should access entry value if user is valid', async () => {
-		const { sut, getEntryRepository } = makeSut();
-		const entry = new EntryMock();
-		getEntryRepository.output = entry;
-
-		await sut.perform(token);
-
-		await expect(entry.calls).toBe(1);
-	});
-
 	it('should create a protected entry', async () => {
 		const { sut, protectedRepositoryFactory } = makeSut();
 
 		await sut.perform(token);
 
 		await expect(protectedRepositoryFactory.calls).toBe(1);
+	});
+
+	it('should calls protected get value if user is valid', async () => {
+		const { sut, protectedRepositoryFactory } = makeSut();
+
+		await sut.perform(token);
+
+		const protectedEntry = protectedRepositoryFactory.lastCreatedEntry;
+		expect(protectedEntry?.calls).toBe(1);
 	});
 });
